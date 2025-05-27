@@ -119,6 +119,7 @@ class SonicWallClient:
         """
         url = f"{self.api_url}{path}"
         response = None
+        method = method.lower()
 
         if method == "get":
             response = self.session.get(url, json=payload)
