@@ -11,16 +11,16 @@ A simple Python client for interacting with the SonicWall SonicOS REST API, usin
 
 ## Installation
 
-You can clone this repository or install it directly using `pip`:
+Install the package from PyPI:
 
 ```bash
-pip install git+https://github.com/Samuel-Berset/sonicwall-api-client.git
+pip install sonicwall-api-client
 ```
 
 ## Import
 
 ```python
-from sonicwall_api import SonicWallClient
+from sonicwall_api_client import SonicWallClient
 ```
 
 ## Examples
