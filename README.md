@@ -25,17 +25,26 @@ from sonicwall_api_client import SonicWallClient
 
 ## Examples
 
-### Connect to the firewall
+### Initialize the client
 
 ```python
-# Initialize the client
+# Initialize the client (with optional TFA code)
 client = SonicWallClient(
     ip="192.168.1.1",
     port=443,
     username="admin",
     password="password"
+    tfa="123456"  # optional, only if TFA is enabled
 )
+```
+> **Note**  
+> The `tfa` argument is optional and should only be provided if the SonicWall firewall is configured with Two-Factor Authentication (TFA/2FA).  
+> If TFA is not required, you can omit this argument.
 
+
+### Connect to the firewall
+
+```python
 # Log in
 success, message, _ = client.login()
 if success:

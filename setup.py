@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="sonicwall-api-client",
-    version="1.0.2",
+    version="1.0.3",
     author="Samuel Berset",
     author_email="your.email@example.com",
     description="Simple Python client for SonicWall SonicOS REST API (with HTTP Digest Auth).",
