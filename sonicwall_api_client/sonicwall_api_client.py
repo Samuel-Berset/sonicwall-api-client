@@ -43,7 +43,6 @@ def get_result(response):
 
 class SonicWallClient:
     def __init__(self, ip: str, port: int, username: str, password: str, tfa: int | None):
-    #def __init__(self, ip, port, username, password, tfa=None):
         """
         Initialize a session with the SonicWall API using HTTP Digest Authentication.
 
@@ -99,7 +98,7 @@ class SonicWallClient:
         Logout current sessioin.
         """
         url = f"{self.api_url}/auth"
-        response = self.session.delete(url)
+        response = self.session.delete(url, headers=self.header)
         return get_result(response)
 
 
@@ -110,7 +109,7 @@ class SonicWallClient:
         Check if there are pending (unsaved) configuration changes.
         """
         url = f"{self.api_url}/config/pending"
-        response = self.session.get(url)
+        response = self.session.get(url, headers=self.header)
         return get_result(response)
     
 
@@ -119,7 +118,7 @@ class SonicWallClient:
         Commit all pending configuration changes to make them permanent.
         """
         url = f"{self.api_url}/config/pending"
-        response = self.session.post(url, json={})
+        response = self.session.post(url, headers=self.header, json={})
         return get_result(response)
     
 
@@ -128,7 +127,7 @@ class SonicWallClient:
         Commit all pending configuration changes to make them permanent.
         """
         url = f"{self.api_url}/config/pending"
-        response = self.session.delete(url, json={})
+        response = self.session.delete(url, headers=self.header, json={})
         return get_result(response)
     
 
@@ -148,15 +147,15 @@ class SonicWallClient:
         method = method.lower()
 
         if method == "get":
-            response = self.session.get(url, json=payload)
+            response = self.session.get(url, headers=self.header, json=payload)
         elif method == "post":
-            response = self.session.post(url, json=payload)
+            response = self.session.post(url, headers=self.header, json=payload)
         elif method == "put":
-            response = self.session.put(url, json=payload)
+            response = self.session.put(url, headers=self.header, json=payload)
         elif method == "patch":
-            response = self.session.patch(url, json=payload)
+            response = self.session.patch(url, headers=self.header, json=payload)
         elif method == "delete":
-            response = self.session.delete(url, json=payload)
+            response = self.session.delete(url, headers=self.header, json=payload)
         else:
             return False, "Bad method", None
         
