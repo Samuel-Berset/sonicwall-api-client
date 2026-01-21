@@ -29,16 +29,22 @@ urllib3.disable_warnings()
 
 
 def get_result(response):
-    result = response.json()
+    try:
+        result = response.json()
+        
+        if "status" in result:
+            success = result["status"].get("success", False)
+            message = result["status"].get("info", [{}])[0].get("message", "Unknown error")
 
-    if "status" in result:
-        success = result["status"].get("success", False)
-        message = result["status"].get("info", [{}])[0].get("message", "Unknown error")
-        if message == "TOTP":
-            return False, "TOTP required", None
-        return success, message, None
+            if message == "TOTP":
+                return False, "TOTP required", None
 
-    return True, "Success.", result
+            return success, message, None
+
+        return True, "Success.", result
+    
+    except:
+        return True, "Success.", response.content
 
 
 class SonicWallClient:
